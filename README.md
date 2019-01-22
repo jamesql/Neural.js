@@ -1,6 +1,15 @@
 # About
 A lightweight, fast, and simple neural networking library that is designed for both server-side and client-side usage. While this does currently work, it will continued to be updated when I feel like it.
 
+# Notes
+While this is a great neural networking library, there are some things that you must be aware of...
+
+  - Neural networks are meant to handle numbers between -1 and +1 so map your data accordingly
+  
+  - When setting one network to a nother network (```var net1 = net2```), it is a reference, meaning that any changes to ```net1``` will be repeated to ```net2```
+  
+  - ```JSON.parse(JSON.stringify(network))``` is only a shallow copy of the network, meaning functions such as ```think()``` will not be transfereed
+
 # Usage
 **Creating A Neuron**
 
