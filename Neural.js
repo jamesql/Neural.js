@@ -1,7 +1,7 @@
 function htan (x) {
   
-  return (Math.pow(Math.E, x)-Math.pow(Math.E, -x))/(Math.pow(Math.E, x)+Math.pow(Math.E, -x));
-  
+  return (Math.E^x - Math.E^-x) / (Math.E^x + Math.E^-x);
+
 }
 
 class Neuron {
@@ -39,16 +39,9 @@ class Network {
   think () {
     
     var network = JSON.parse(JSON.stringify(this));
-    var smart = false;
     var input = network.input;
     var hidden = network.hidden;
     var output = network.output;
-    
-    if (hidden.length > 0) {
-      
-      smart = true;
-      
-    }
     
     var i, n, x, neuron, connection, connector;
     for (i = 0; i < input.neurons.length; i ++) {
@@ -77,7 +70,7 @@ class Network {
         
         neuron = layer.neurons[n];
         neuron.value = htan(neuron.value);
-        
+
         for (x = 0; x < neuron.connections.length; x ++) {
           
           connection = neuron.connections[x];
@@ -121,5 +114,135 @@ class Brain {
     
   }
   
+  
+}
+
+function emptyNetwork (inputNeurons, hiddenLayers, hiddenNeurons, outputNeurons, name) {
+  
+  var inputLayer = new Layer();
+  var hiddenLayerStore = [];
+  var outputLayer = new Layer();
+  
+  var i, n;
+  for (i = 0; i < inputNeurons; i ++) {
+    
+    var inputNeuron = new Neuron(0);
+    
+    for (n = 0; n < hiddenNeurons; n ++) {
+      
+      inputNeuron.connections.push(0);
+      
+    }
+    
+    inputLayer.neurons.push(inputNeuron);
+    
+  }
+  for (i = 0; i < hiddenLayers; i ++) {
+    
+    hiddenLayer = new Layer();
+    
+    for (n = 0; n < hiddenNeurons; n ++) {
+      
+      var hiddenNeuron = new Neuron(0);
+      
+      for (var x = 0; x < hiddenNeurons; x ++) {
+        
+        hiddenNeuron.connections.push(0);
+        
+      }
+      
+      hiddenLayer.neurons.push(hiddenNeuron);
+      
+    }
+    
+    hiddenLayerStore.push(hiddenLayer);
+  }
+  
+  for (i = 0; i < hiddenNeurons; i ++) {
+    
+    hiddenLayerStore[hiddenLayers-1].neurons[i].connections = [];
+    
+    for (n = 0; n < outputNeurons; n ++) {
+      
+      hiddenLayerStore[hiddenLayers-1].neurons[i].connections.push(0);
+      
+    }
+    
+  }
+  
+  for (i = 0; i < outputNeurons; i ++) {
+    
+    var outputNeuron = new Neuron(0);
+    outputLayer.neurons.push(outputNeuron);
+    
+  }
+  
+  var network = new Network(inputLayer, hiddenLayerStore, outputLayer, name);
+  return network;
+  
+}
+
+function connectedNetwork (inputNeurons, hiddenLayers, hiddenNeurons, outputNeurons, name) {
+  
+  var inputLayer = new Layer();
+  var hiddenLayerStore = [];
+  var outputLayer = new Layer();
+  
+  var i, n;
+  for (i = 0; i < inputNeurons; i ++) {
+    
+    var inputNeuron = new Neuron(0);
+    
+    for (n = 0; n < hiddenNeurons; n ++) {
+      
+      inputNeuron.connections.push(1);
+      
+    }
+    
+    inputLayer.neurons.push(inputNeuron);
+    
+  }
+  for (i = 0; i < hiddenLayers; i ++) {
+    
+    hiddenLayer = new Layer();
+    
+    for (n = 0; n < hiddenNeurons; n ++) {
+      
+      var hiddenNeuron = new Neuron(0);
+      
+      for (var x = 0; x < hiddenNeurons; x ++) {
+        
+        hiddenNeuron.connections.push(1);
+        
+      }
+      
+      hiddenLayer.neurons.push(hiddenNeuron);
+      
+    }
+    
+    hiddenLayerStore.push(hiddenLayer);
+  }
+  
+  for (i = 0; i < hiddenNeurons; i ++) {
+    
+    hiddenLayerStore[hiddenLayers-1].neurons[i].connections = [];
+    
+    for (n = 0; n < outputNeurons; n ++) {
+      
+      hiddenLayerStore[hiddenLayers-1].neurons[i].connections.push(1);
+      
+    }
+    
+  }
+  
+  for (i = 0; i < outputNeurons; i ++) {
+    
+    var outputNeuron = new Neuron(0);
+    outputLayer.neurons.push(outputNeuron);
+    
+  }
+  
+  var network = new Network(inputLayer, hiddenLayerStore, outputLayer, name);
+  return network;
   
 }
