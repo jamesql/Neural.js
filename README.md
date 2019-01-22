@@ -35,11 +35,24 @@ A lightweight, fast, and simple neural networking library that is designed for b
 When assigning a variable to a thought process (```.think()```), the variable will be set to the output layer of the finished thought process. The output layer contains an array of neurons whos values can be seen.
 
 ```networkThoughts.neurons```, The array of neurons in the output layer
+
 ```networkThoughts.neurons[#]```, A specific neuron in the output layer
+
 ```networkThoughts.neurons[#].value```, The value of a specific neuron in the output layer
+
 ```networkThoughts.neurons[#].connections```, The array of connections of a specific neuron in the output layer (mostly useless because connections arent needed in output neurons)
 
-# Example
+**Automation**
+
+Creating large neural networks can be a hefty job, so there are two functions to help with that.
+
+```var networkName = emptyNetwork(#inputNeurons, #hiddenLayers, #neuronsInLayer, #outputNeurons, "name");```, creates a neural network whos connections are all set to zero.
+
+```var networkName = connectedNetwork(#inputNeurons, #hiddenLayers, #neuronsInLayer, #outputNeurons, "name");```, creates a neural network whos connections are all set to one.
+
+Both of the above networks can be used just like any other neural network, they only make the creation of large neural networks easier.
+
+# Manual Neural Nerwork Example
 
 Below is an example of a brain with one neural network. Each layer within the neural network will only have one neuron, and there will be one hidden layer.
 
