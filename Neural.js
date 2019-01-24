@@ -1,15 +1,23 @@
-function htan (x) {
+function Witchcraft (x) {
   
-  return (Math.E^x - Math.E^-x) / (Math.E^x + Math.E^-x);
+  var result = (Math.E^x - Math.E^-x) / (Math.E^x + Math.E^-x);
+  
+  if (result === Infinity) {
+    
+    result = 1;
+    
+  }
+  
+  return result;
 
 }
 
 class Neuron {
   
-  constructor (value, connections) {
+  constructor (value = 0, connections = []) {
     
-    this.value = value || 0;
-    this.connections = connections || [];
+    this.value = value;
+    this.connections = connections;
     
   }
   
@@ -17,9 +25,9 @@ class Neuron {
 
 class Layer {
   
-  constructor (neurons) {
+  constructor (neurons = []) {
     
-    this.neurons = neurons || [];
+    this.neurons = neurons;
     
   }
   
@@ -27,12 +35,12 @@ class Layer {
 
 class Network {
   
-  constructor (input, hidden, output, name) {
+  constructor (input, hidden = [], output, name = Math.random()) {
     
     this.input = input;
-    this.hidden = hidden || [];
+    this.hidden = hidden;
     this.output = output;
-    this.name = name || Math.random();
+    this.name = name;
     
   }
   
@@ -69,7 +77,7 @@ class Network {
       for (n = 0; n < layer.neurons.length; n ++) {
         
         neuron = layer.neurons[n];
-        neuron.value = htan(neuron.value);
+        neuron.value = Witchcraft(neuron.value);
 
         for (x = 0; x < neuron.connections.length; x ++) {
           
@@ -90,7 +98,7 @@ class Network {
     for (i = 0; i < output.neurons.length; i ++) {
       
       neuron = output.neurons[i];
-      neuron.value = htan(neuron.value);
+      neuron.value = Witchcraft(neuron.value);
       
     }
     
@@ -102,9 +110,9 @@ class Network {
 
 class Brain {
   
-  constructor (networks) {
+  constructor (networks = {}) {
     
-    this.networks = networks || {};
+    this.networks = networks;
     
   }
   
