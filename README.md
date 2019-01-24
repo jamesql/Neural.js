@@ -9,11 +9,21 @@ While this is a great neural networking library, there are some things that you 
   - When setting one network to a nother network (```var net1 = net2```), it is a reference, meaning that any changes to ```net1``` will be repeated to ```net2```
   
   - ```JSON.parse(JSON.stringify(network))``` is only a shallow copy of the network, meaning functions such as ```think()``` will not be transfereed
+  
+ # Documentation Key
+ 
+ #something = integer
+ 
+ [something] = array
+ 
+ "something" = string
+ 
+ {something} = object
 
 # Usage
 **Creating A Neuron**
 
-```var neuronName = new Neuron(value, [connections]);```
+```var neuronName = new Neuron(#value, [connections]);```
 
 **Creating A Layer**
 
